@@ -1,0 +1,958 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Transliteration Model Predictions</title>
+        <style>
+            body { font-family: Arial, sans-serif; max-width: 1200px; margin: 0 auto; padding: 20px; }
+            h1 { color: #2c3e50; text-align: center; }
+            .stats { background: #f8f9fa; padding: 15px; border-radius: 5px; margin-bottom: 20px; }
+            .prediction-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px; }
+            .prediction-card { 
+                border: 1px solid #ddd; 
+                border-radius: 8px; 
+                padding: 15px; 
+                transition: transform 0.2s;
+            }
+            .prediction-card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+            .match { background-color: #d4edda; }
+            .close { background-color: #fff3cd; }
+            .miss { background-color: #f8d7da; }
+            .input { font-weight: bold; color: #0066cc; }
+            .target { font-weight: bold; color: #28a745; }
+            .prediction { font-weight: bold; }
+            .char-match { color: green; }
+            .char-miss { color: red; }
+            .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+            .meter { height: 20px; background: #e9ecef; border-radius: 10px; overflow: hidden; margin-top: 5px; }
+            .meter-fill { height: 100%; background: linear-gradient(90deg, #4caf50, #8bc34a); }
+        </style>
+    </head>
+    <body>
+        <h1>🔤 Hindi Transliteration Model Results 🔤</h1>
+        
+        <div class="stats">
+            <h2>Overall Statistics</h2>
+            <div class="stats-grid">
+                <div>
+                    <p>Total Samples: <strong>100</strong></p>
+                    <p>Exact Match Accuracy: <strong>26.0%</strong></p>
+                    <div class="meter">
+                        <div class="meter-fill" style="width: 26.0%"></div>
+                    </div>
+                </div>
+                <div>
+                    <p>Average Character Accuracy: <strong>65.9%</strong></p>
+                    <div class="meter">
+                        <div class="meter-fill" style="width: 65.9%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <h2>Sample Predictions</h2>
+        <div class="prediction-grid">
+            
+        <div class="prediction-card miss">
+            <p><span class="input">Input:</span> ank</p>
+            <p><span class="target">Target:</span> अंक</p>
+            <p><span class="prediction">Prediction:</span> एंक</p>
+            <p>Character Match: <span class="char-miss">ए</span><span class="char-match">ं</span><span class="char-match">क</span></p>
+            <p>Accuracy: 66.7%</p>
+        </div>
+        
+
+        <div class="prediction-card miss">
+            <p><span class="input">Input:</span> anka</p>
+            <p><span class="target">Target:</span> अंक</p>
+            <p><span class="prediction">Prediction:</span> आंका</p>
+            <p>Character Match: <span class="char-miss">आ</span><span class="char-match">ं</span><span class="char-match">क</span><span class="char-miss">ा</span></p>
+            <p>Accuracy: 66.7%</p>
+        </div>
+        
+
+        <div class="prediction-card match">
+            <p><span class="input">Input:</span> ankit</p>
+            <p><span class="target">Target:</span> अंकित</p>
+            <p><span class="prediction">Prediction:</span> अंकित</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">ं</span><span class="char-match">क</span><span class="char-match">ि</span><span class="char-match">त</span></p>
+            <p>Accuracy: 100.0%</p>
+        </div>
+        
+
+        <div class="prediction-card miss">
+            <p><span class="input">Input:</span> anakon</p>
+            <p><span class="target">Target:</span> अंकों</p>
+            <p><span class="prediction">Prediction:</span> अनाकों</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-miss">न</span><span class="char-miss">ा</span><span class="char-miss">क</span><span class="char-miss">ो</span><span class="char-miss">ं</span></p>
+            <p>Accuracy: 20.0%</p>
+        </div>
+        
+
+        <div class="prediction-card miss">
+            <p><span class="input">Input:</span> ankhon</p>
+            <p><span class="target">Target:</span> अंकों</p>
+            <p><span class="prediction">Prediction:</span> आंखों</p>
+            <p>Character Match: <span class="char-miss">आ</span><span class="char-match">ं</span><span class="char-miss">ख</span><span class="char-match">ो</span><span class="char-match">ं</span></p>
+            <p>Accuracy: 60.0%</p>
+        </div>
+        
+
+        <div class="prediction-card close">
+            <p><span class="input">Input:</span> ankon</p>
+            <p><span class="target">Target:</span> अंकों</p>
+            <p><span class="prediction">Prediction:</span> आंकों</p>
+            <p>Character Match: <span class="char-miss">आ</span><span class="char-match">ं</span><span class="char-match">क</span><span class="char-match">ो</span><span class="char-match">ं</span></p>
+            <p>Accuracy: 80.0%</p>
+        </div>
+        
+
+        <div class="prediction-card miss">
+            <p><span class="input">Input:</span> angkor</p>
+            <p><span class="target">Target:</span> अंकोर</p>
+            <p><span class="prediction">Prediction:</span> एंगकर</p>
+            <p>Character Match: <span class="char-miss">ए</span><span class="char-match">ं</span><span class="char-miss">ग</span><span class="char-miss">क</span><span class="char-match">र</span></p>
+            <p>Accuracy: 40.0%</p>
+        </div>
+        
+
+        <div class="prediction-card miss">
+            <p><span class="input">Input:</span> ankor</p>
+            <p><span class="target">Target:</span> अंकोर</p>
+            <p><span class="prediction">Prediction:</span> एंकर</p>
+            <p>Character Match: <span class="char-miss">ए</span><span class="char-match">ं</span><span class="char-match">क</span><span class="char-miss">र</span><span class="char-miss">_</span></p>
+            <p>Accuracy: 40.0%</p>
+        </div>
+        
+
+        <div class="prediction-card miss">
+            <p><span class="input">Input:</span> angaarak</p>
+            <p><span class="target">Target:</span> अंगारक</p>
+            <p><span class="prediction">Prediction:</span> अंगराक</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">ं</span><span class="char-match">ग</span><span class="char-miss">र</span><span class="char-miss">ा</span><span class="char-match">क</span></p>
+            <p>Accuracy: 66.7%</p>
+        </div>
+        
+
+        <div class="prediction-card miss">
+            <p><span class="input">Input:</span> angarak</p>
+            <p><span class="target">Target:</span> अंगारक</p>
+            <p><span class="prediction">Prediction:</span> अंगरक</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">ं</span><span class="char-match">ग</span><span class="char-miss">र</span><span class="char-miss">क</span><span class="char-miss">_</span></p>
+            <p>Accuracy: 50.0%</p>
+        </div>
+        
+
+        <div class="prediction-card close">
+            <p><span class="input">Input:</span> angraji</p>
+            <p><span class="target">Target:</span> अंग्रज़ी</p>
+            <p><span class="prediction">Prediction:</span> अंग्रजी</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">ं</span><span class="char-match">ग</span><span class="char-match">्</span><span class="char-match">र</span><span class="char-match">ज</span><span class="char-miss">ी</span><span class="char-miss">_</span></p>
+            <p>Accuracy: 75.0%</p>
+        </div>
+        
+
+        <div class="prediction-card close">
+            <p><span class="input">Input:</span> angreji</p>
+            <p><span class="target">Target:</span> अंग्रज़ी</p>
+            <p><span class="prediction">Prediction:</span> अंग्रेजी</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">ं</span><span class="char-match">ग</span><span class="char-match">्</span><span class="char-match">र</span><span class="char-miss">े</span><span class="char-miss">ज</span><span class="char-match">ी</span></p>
+            <p>Accuracy: 75.0%</p>
+        </div>
+        
+
+        <div class="prediction-card close">
+            <p><span class="input">Input:</span> angrzi</p>
+            <p><span class="target">Target:</span> अंग्रज़ी</p>
+            <p><span class="prediction">Prediction:</span> अंग्रजी</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">ं</span><span class="char-match">ग</span><span class="char-match">्</span><span class="char-match">र</span><span class="char-match">ज</span><span class="char-miss">ी</span><span class="char-miss">_</span></p>
+            <p>Accuracy: 75.0%</p>
+        </div>
+        
+
+        <div class="prediction-card match">
+            <p><span class="input">Input:</span> antah</p>
+            <p><span class="target">Target:</span> अंतः</p>
+            <p><span class="prediction">Prediction:</span> अंतः</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">ं</span><span class="char-match">त</span><span class="char-match">ः</span></p>
+            <p>Accuracy: 100.0%</p>
+        </div>
+        
+
+        <div class="prediction-card match">
+            <p><span class="input">Input:</span> antaha</p>
+            <p><span class="target">Target:</span> अंतः</p>
+            <p><span class="prediction">Prediction:</span> अंतः</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">ं</span><span class="char-match">त</span><span class="char-match">ः</span></p>
+            <p>Accuracy: 100.0%</p>
+        </div>
+        
+
+        <div class="prediction-card match">
+            <p><span class="input">Input:</span> antarmukh</p>
+            <p><span class="target">Target:</span> अंतर्मुख</p>
+            <p><span class="prediction">Prediction:</span> अंतर्मुख</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">ं</span><span class="char-match">त</span><span class="char-match">र</span><span class="char-match">्</span><span class="char-match">म</span><span class="char-match">ु</span><span class="char-match">ख</span></p>
+            <p>Accuracy: 100.0%</p>
+        </div>
+        
+
+        <div class="prediction-card miss">
+            <p><span class="input">Input:</span> antmurkh</p>
+            <p><span class="target">Target:</span> अंतर्मुख</p>
+            <p><span class="prediction">Prediction:</span> अंतरुुर्ख</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">ं</span><span class="char-match">त</span><span class="char-match">र</span><span class="char-miss">ु</span><span class="char-miss">ु</span><span class="char-miss">र</span><span class="char-miss">्</span><span class="char-miss">ख</span></p>
+            <p>Accuracy: 50.0%</p>
+        </div>
+        
+
+        <div class="prediction-card match">
+            <p><span class="input">Input:</span> antrmukh</p>
+            <p><span class="target">Target:</span> अंतर्मुख</p>
+            <p><span class="prediction">Prediction:</span> अंतर्मुख</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">ं</span><span class="char-match">त</span><span class="char-match">र</span><span class="char-match">्</span><span class="char-match">म</span><span class="char-match">ु</span><span class="char-match">ख</span></p>
+            <p>Accuracy: 100.0%</p>
+        </div>
+        
+
+        <div class="prediction-card miss">
+            <p><span class="input">Input:</span> andrabee</p>
+            <p><span class="target">Target:</span> अंद्राबी</p>
+            <p><span class="prediction">Prediction:</span> अंदर्बी</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">ं</span><span class="char-match">द</span><span class="char-miss">र</span><span class="char-miss">्</span><span class="char-miss">ब</span><span class="char-miss">ी</span><span class="char-miss">_</span></p>
+            <p>Accuracy: 37.5%</p>
+        </div>
+        
+
+        <div class="prediction-card miss">
+            <p><span class="input">Input:</span> andrabi</p>
+            <p><span class="target">Target:</span> अंद्राबी</p>
+            <p><span class="prediction">Prediction:</span> अंदर्बी</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">ं</span><span class="char-match">द</span><span class="char-miss">र</span><span class="char-miss">्</span><span class="char-miss">ब</span><span class="char-miss">ी</span><span class="char-miss">_</span></p>
+            <p>Accuracy: 37.5%</p>
+        </div>
+        
+
+        <div class="prediction-card match">
+            <p><span class="input">Input:</span> andha</p>
+            <p><span class="target">Target:</span> अंधा</p>
+            <p><span class="prediction">Prediction:</span> अंधा</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">ं</span><span class="char-match">ध</span><span class="char-match">ा</span></p>
+            <p>Accuracy: 100.0%</p>
+        </div>
+        
+
+        <div class="prediction-card close">
+            <p><span class="input">Input:</span> andhapan</p>
+            <p><span class="target">Target:</span> अंधापन</p>
+            <p><span class="prediction">Prediction:</span> अंधपपन</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">ं</span><span class="char-match">ध</span><span class="char-miss">प</span><span class="char-match">प</span><span class="char-match">न</span></p>
+            <p>Accuracy: 83.3%</p>
+        </div>
+        
+
+        <div class="prediction-card match">
+            <p><span class="input">Input:</span> andheri</p>
+            <p><span class="target">Target:</span> अंधेरी</p>
+            <p><span class="prediction">Prediction:</span> अंधेरी</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">ं</span><span class="char-match">ध</span><span class="char-match">े</span><span class="char-match">र</span><span class="char-match">ी</span></p>
+            <p>Accuracy: 100.0%</p>
+        </div>
+        
+
+        <div class="prediction-card match">
+            <p><span class="input">Input:</span> ambaani</p>
+            <p><span class="target">Target:</span> अंबानी</p>
+            <p><span class="prediction">Prediction:</span> अंबानी</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">ं</span><span class="char-match">ब</span><span class="char-match">ा</span><span class="char-match">न</span><span class="char-match">ी</span></p>
+            <p>Accuracy: 100.0%</p>
+        </div>
+        
+
+        <div class="prediction-card miss">
+            <p><span class="input">Input:</span> ambani</p>
+            <p><span class="target">Target:</span> अंबानी</p>
+            <p><span class="prediction">Prediction:</span> अंबनी</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">ं</span><span class="char-match">ब</span><span class="char-miss">न</span><span class="char-miss">ी</span><span class="char-miss">_</span></p>
+            <p>Accuracy: 50.0%</p>
+        </div>
+        
+
+        <div class="prediction-card miss">
+            <p><span class="input">Input:</span> akram</p>
+            <p><span class="target">Target:</span> अकरम</p>
+            <p><span class="prediction">Prediction:</span> आक्रम</p>
+            <p>Character Match: <span class="char-miss">आ</span><span class="char-match">क</span><span class="char-miss">्</span><span class="char-miss">र</span><span class="char-miss">म</span></p>
+            <p>Accuracy: 25.0%</p>
+        </div>
+        
+
+        <div class="prediction-card miss">
+            <p><span class="input">Input:</span> acapulco</p>
+            <p><span class="target">Target:</span> अकापुल्को</p>
+            <p><span class="prediction">Prediction:</span> अकाप्लो</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">क</span><span class="char-match">ा</span><span class="char-match">प</span><span class="char-miss">्</span><span class="char-match">ल</span><span class="char-miss">ो</span><span class="char-miss">_</span><span class="char-miss">_</span></p>
+            <p>Accuracy: 55.6%</p>
+        </div>
+        
+
+        <div class="prediction-card miss">
+            <p><span class="input">Input:</span> akapulko</p>
+            <p><span class="target">Target:</span> अकापुल्को</p>
+            <p><span class="prediction">Prediction:</span> अकापुलो</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">क</span><span class="char-match">ा</span><span class="char-match">प</span><span class="char-match">ु</span><span class="char-match">ल</span><span class="char-miss">ो</span><span class="char-miss">_</span><span class="char-miss">_</span></p>
+            <p>Accuracy: 66.7%</p>
+        </div>
+        
+
+        <div class="prediction-card miss">
+            <p><span class="input">Input:</span> akhand</p>
+            <p><span class="target">Target:</span> अखंड</p>
+            <p><span class="prediction">Prediction:</span> अखांड</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">ख</span><span class="char-miss">ा</span><span class="char-miss">ं</span><span class="char-miss">ड</span></p>
+            <p>Accuracy: 50.0%</p>
+        </div>
+        
+
+        <div class="prediction-card match">
+            <p><span class="input">Input:</span> akhil</p>
+            <p><span class="target">Target:</span> अखिल</p>
+            <p><span class="prediction">Prediction:</span> अखिल</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">ख</span><span class="char-match">ि</span><span class="char-match">ल</span></p>
+            <p>Accuracy: 100.0%</p>
+        </div>
+        
+
+        <div class="prediction-card match">
+            <p><span class="input">Input:</span> agavai</p>
+            <p><span class="target">Target:</span> अगवाई</p>
+            <p><span class="prediction">Prediction:</span> अगवाई</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">ग</span><span class="char-match">व</span><span class="char-match">ा</span><span class="char-match">ई</span></p>
+            <p>Accuracy: 100.0%</p>
+        </div>
+        
+
+        <div class="prediction-card match">
+            <p><span class="input">Input:</span> agvaai</p>
+            <p><span class="target">Target:</span> अगवाई</p>
+            <p><span class="prediction">Prediction:</span> अगवाई</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">ग</span><span class="char-match">व</span><span class="char-match">ा</span><span class="char-match">ई</span></p>
+            <p>Accuracy: 100.0%</p>
+        </div>
+        
+
+        <div class="prediction-card miss">
+            <p><span class="input">Input:</span> augustine</p>
+            <p><span class="target">Target:</span> अगस्टाइन</p>
+            <p><span class="prediction">Prediction:</span> अगस्टिन</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">ग</span><span class="char-match">स</span><span class="char-match">्</span><span class="char-match">ट</span><span class="char-miss">ि</span><span class="char-miss">न</span><span class="char-miss">_</span></p>
+            <p>Accuracy: 62.5%</p>
+        </div>
+        
+
+        <div class="prediction-card miss">
+            <p><span class="input">Input:</span> augustustine</p>
+            <p><span class="target">Target:</span> अगस्टाइन</p>
+            <p><span class="prediction">Prediction:</span> अगस्ट््येटिन</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">ग</span><span class="char-match">स</span><span class="char-match">्</span><span class="char-match">ट</span><span class="char-miss">्</span><span class="char-miss">्</span><span class="char-miss">य</span><span class="char-miss">े</span><span class="char-miss">ट</span><span class="char-miss">ि</span><span class="char-miss">न</span></p>
+            <p>Accuracy: 62.5%</p>
+        </div>
+        
+
+        <div class="prediction-card close">
+            <p><span class="input">Input:</span> agsta</p>
+            <p><span class="target">Target:</span> अगस्ता</p>
+            <p><span class="prediction">Prediction:</span> एगस्ता</p>
+            <p>Character Match: <span class="char-miss">ए</span><span class="char-match">ग</span><span class="char-match">स</span><span class="char-match">्</span><span class="char-match">त</span><span class="char-match">ा</span></p>
+            <p>Accuracy: 83.3%</p>
+        </div>
+        
+
+        <div class="prediction-card miss">
+            <p><span class="input">Input:</span> agusta</p>
+            <p><span class="target">Target:</span> अगस्ता</p>
+            <p><span class="prediction">Prediction:</span> अगुस्ता</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">ग</span><span class="char-miss">ु</span><span class="char-miss">स</span><span class="char-miss">्</span><span class="char-miss">त</span><span class="char-miss">ा</span></p>
+            <p>Accuracy: 33.3%</p>
+        </div>
+        
+
+        <div class="prediction-card miss">
+            <p><span class="input">Input:</span> augusta</p>
+            <p><span class="target">Target:</span> अगस्ता</p>
+            <p><span class="prediction">Prediction:</span> अगसूस्ता</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">ग</span><span class="char-match">स</span><span class="char-miss">ू</span><span class="char-miss">स</span><span class="char-miss">्</span><span class="char-miss">त</span><span class="char-miss">ा</span></p>
+            <p>Accuracy: 50.0%</p>
+        </div>
+        
+
+        <div class="prediction-card close">
+            <p><span class="input">Input:</span> agr</p>
+            <p><span class="target">Target:</span> अग्र</p>
+            <p><span class="prediction">Prediction:</span> एग्र</p>
+            <p>Character Match: <span class="char-miss">ए</span><span class="char-match">ग</span><span class="char-match">्</span><span class="char-match">र</span></p>
+            <p>Accuracy: 75.0%</p>
+        </div>
+        
+
+        <div class="prediction-card close">
+            <p><span class="input">Input:</span> agra</p>
+            <p><span class="target">Target:</span> अग्र</p>
+            <p><span class="prediction">Prediction:</span> एग्र</p>
+            <p>Character Match: <span class="char-miss">ए</span><span class="char-match">ग</span><span class="char-match">्</span><span class="char-match">र</span></p>
+            <p>Accuracy: 75.0%</p>
+        </div>
+        
+
+        <div class="prediction-card match">
+            <p><span class="input">Input:</span> achambha</p>
+            <p><span class="target">Target:</span> अचंभा</p>
+            <p><span class="prediction">Prediction:</span> अचंभा</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">च</span><span class="char-match">ं</span><span class="char-match">भ</span><span class="char-match">ा</span></p>
+            <p>Accuracy: 100.0%</p>
+        </div>
+        
+
+        <div class="prediction-card match">
+            <p><span class="input">Input:</span> achanbha</p>
+            <p><span class="target">Target:</span> अचंभा</p>
+            <p><span class="prediction">Prediction:</span> अचंभा</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">च</span><span class="char-match">ं</span><span class="char-match">भ</span><span class="char-match">ा</span></p>
+            <p>Accuracy: 100.0%</p>
+        </div>
+        
+
+        <div class="prediction-card miss">
+            <p><span class="input">Input:</span> achievement</p>
+            <p><span class="target">Target:</span> अचीवमेंट</p>
+            <p><span class="prediction">Prediction:</span> अचीवेमेंट</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">च</span><span class="char-match">ी</span><span class="char-match">व</span><span class="char-miss">े</span><span class="char-miss">म</span><span class="char-miss">े</span><span class="char-miss">ं</span><span class="char-miss">ट</span></p>
+            <p>Accuracy: 50.0%</p>
+        </div>
+        
+
+        <div class="prediction-card miss">
+            <p><span class="input">Input:</span> achivement</p>
+            <p><span class="target">Target:</span> अचीवमेंट</p>
+            <p><span class="prediction">Prediction:</span> अचीवेमेंट</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">च</span><span class="char-match">ी</span><span class="char-match">व</span><span class="char-miss">े</span><span class="char-miss">म</span><span class="char-miss">े</span><span class="char-miss">ं</span><span class="char-miss">ट</span></p>
+            <p>Accuracy: 50.0%</p>
+        </div>
+        
+
+        <div class="prediction-card miss">
+            <p><span class="input">Input:</span> acchi</p>
+            <p><span class="target">Target:</span> अच्छी</p>
+            <p><span class="prediction">Prediction:</span> अछी</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-miss">छ</span><span class="char-miss">ी</span><span class="char-miss">_</span><span class="char-miss">_</span></p>
+            <p>Accuracy: 20.0%</p>
+        </div>
+        
+
+        <div class="prediction-card match">
+            <p><span class="input">Input:</span> achchi</p>
+            <p><span class="target">Target:</span> अच्छी</p>
+            <p><span class="prediction">Prediction:</span> अच्छी</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">च</span><span class="char-match">्</span><span class="char-match">छ</span><span class="char-match">ी</span></p>
+            <p>Accuracy: 100.0%</p>
+        </div>
+        
+
+        <div class="prediction-card miss">
+            <p><span class="input">Input:</span> achhi</p>
+            <p><span class="target">Target:</span> अच्छी</p>
+            <p><span class="prediction">Prediction:</span> अछी</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-miss">छ</span><span class="char-miss">ी</span><span class="char-miss">_</span><span class="char-miss">_</span></p>
+            <p>Accuracy: 20.0%</p>
+        </div>
+        
+
+        <div class="prediction-card close">
+            <p><span class="input">Input:</span> achyut</p>
+            <p><span class="target">Target:</span> अच्युत</p>
+            <p><span class="prediction">Prediction:</span> अछ्युत</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-miss">छ</span><span class="char-match">्</span><span class="char-match">य</span><span class="char-match">ु</span><span class="char-match">त</span></p>
+            <p>Accuracy: 83.3%</p>
+        </div>
+        
+
+        <div class="prediction-card miss">
+            <p><span class="input">Input:</span> achhanera</p>
+            <p><span class="target">Target:</span> अछनेरा</p>
+            <p><span class="prediction">Prediction:</span> अच्नेतरा</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-miss">च</span><span class="char-miss">्</span><span class="char-miss">न</span><span class="char-miss">े</span><span class="char-miss">त</span><span class="char-miss">र</span><span class="char-miss">ा</span></p>
+            <p>Accuracy: 16.7%</p>
+        </div>
+        
+
+        <div class="prediction-card miss">
+            <p><span class="input">Input:</span> achnera</p>
+            <p><span class="target">Target:</span> अछनेरा</p>
+            <p><span class="prediction">Prediction:</span> अच्नेरा</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-miss">च</span><span class="char-miss">्</span><span class="char-miss">न</span><span class="char-miss">े</span><span class="char-miss">र</span><span class="char-miss">ा</span></p>
+            <p>Accuracy: 16.7%</p>
+        </div>
+        
+
+        <div class="prediction-card miss">
+            <p><span class="input">Input:</span> ajmeedh</p>
+            <p><span class="target">Target:</span> अजमीढ़</p>
+            <p><span class="prediction">Prediction:</span> अजमीद</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">ज</span><span class="char-match">म</span><span class="char-match">ी</span><span class="char-miss">द</span><span class="char-miss">_</span></p>
+            <p>Accuracy: 66.7%</p>
+        </div>
+        
+
+        <div class="prediction-card miss">
+            <p><span class="input">Input:</span> ajhar</p>
+            <p><span class="target">Target:</span> अजहर</p>
+            <p><span class="prediction">Prediction:</span> आधार</p>
+            <p>Character Match: <span class="char-miss">आ</span><span class="char-miss">ध</span><span class="char-miss">ा</span><span class="char-match">र</span></p>
+            <p>Accuracy: 25.0%</p>
+        </div>
+        
+
+        <div class="prediction-card miss">
+            <p><span class="input">Input:</span> azhar</p>
+            <p><span class="target">Target:</span> अजहर</p>
+            <p><span class="prediction">Prediction:</span> आधार</p>
+            <p>Character Match: <span class="char-miss">आ</span><span class="char-miss">ध</span><span class="char-miss">ा</span><span class="char-match">र</span></p>
+            <p>Accuracy: 25.0%</p>
+        </div>
+        
+
+        <div class="prediction-card close">
+            <p><span class="input">Input:</span> ajit</p>
+            <p><span class="target">Target:</span> अजित</p>
+            <p><span class="prediction">Prediction:</span> अजीत</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">ज</span><span class="char-miss">ी</span><span class="char-match">त</span></p>
+            <p>Accuracy: 75.0%</p>
+        </div>
+        
+
+        <div class="prediction-card match">
+            <p><span class="input">Input:</span> agnat</p>
+            <p><span class="target">Target:</span> अज्ञात</p>
+            <p><span class="prediction">Prediction:</span> अज्ञात</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">ज</span><span class="char-match">्</span><span class="char-match">ञ</span><span class="char-match">ा</span><span class="char-match">त</span></p>
+            <p>Accuracy: 100.0%</p>
+        </div>
+        
+
+        <div class="prediction-card match">
+            <p><span class="input">Input:</span> agyaat</p>
+            <p><span class="target">Target:</span> अज्ञात</p>
+            <p><span class="prediction">Prediction:</span> अज्ञात</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">ज</span><span class="char-match">्</span><span class="char-match">ञ</span><span class="char-match">ा</span><span class="char-match">त</span></p>
+            <p>Accuracy: 100.0%</p>
+        </div>
+        
+
+        <div class="prediction-card match">
+            <p><span class="input">Input:</span> agyat</p>
+            <p><span class="target">Target:</span> अज्ञात</p>
+            <p><span class="prediction">Prediction:</span> अज्ञात</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">ज</span><span class="char-match">्</span><span class="char-match">ञ</span><span class="char-match">ा</span><span class="char-match">त</span></p>
+            <p>Accuracy: 100.0%</p>
+        </div>
+        
+
+        <div class="prediction-card match">
+            <p><span class="input">Input:</span> atakta</p>
+            <p><span class="target">Target:</span> अटकता</p>
+            <p><span class="prediction">Prediction:</span> अटकता</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">ट</span><span class="char-match">क</span><span class="char-match">त</span><span class="char-match">ा</span></p>
+            <p>Accuracy: 100.0%</p>
+        </div>
+        
+
+        <div class="prediction-card match">
+            <p><span class="input">Input:</span> atkata</p>
+            <p><span class="target">Target:</span> अटकता</p>
+            <p><span class="prediction">Prediction:</span> अटकता</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">ट</span><span class="char-match">क</span><span class="char-match">त</span><span class="char-match">ा</span></p>
+            <p>Accuracy: 100.0%</p>
+        </div>
+        
+
+        <div class="prediction-card miss">
+            <p><span class="input">Input:</span> atake</p>
+            <p><span class="target">Target:</span> अटके</p>
+            <p><span class="prediction">Prediction:</span> अटेके</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">ट</span><span class="char-miss">े</span><span class="char-miss">क</span><span class="char-miss">े</span></p>
+            <p>Accuracy: 50.0%</p>
+        </div>
+        
+
+        <div class="prediction-card miss">
+            <p><span class="input">Input:</span> atke</p>
+            <p><span class="target">Target:</span> अटके</p>
+            <p><span class="prediction">Prediction:</span> अटेके</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">ट</span><span class="char-miss">े</span><span class="char-miss">क</span><span class="char-miss">े</span></p>
+            <p>Accuracy: 50.0%</p>
+        </div>
+        
+
+        <div class="prediction-card close">
+            <p><span class="input">Input:</span> atwaal</p>
+            <p><span class="target">Target:</span> अटवाल</p>
+            <p><span class="prediction">Prediction:</span> अतवाल</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-miss">त</span><span class="char-match">व</span><span class="char-match">ा</span><span class="char-match">ल</span></p>
+            <p>Accuracy: 80.0%</p>
+        </div>
+        
+
+        <div class="prediction-card miss">
+            <p><span class="input">Input:</span> atwal</p>
+            <p><span class="target">Target:</span> अटवाल</p>
+            <p><span class="prediction">Prediction:</span> अटवल</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">ट</span><span class="char-match">व</span><span class="char-miss">ल</span><span class="char-miss">_</span></p>
+            <p>Accuracy: 60.0%</p>
+        </div>
+        
+
+        <div class="prediction-card miss">
+            <p><span class="input">Input:</span> attahasa</p>
+            <p><span class="target">Target:</span> अट्टहास</p>
+            <p><span class="prediction">Prediction:</span> अत्ताशा</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-miss">त</span><span class="char-match">्</span><span class="char-miss">त</span><span class="char-miss">ा</span><span class="char-miss">श</span><span class="char-miss">ा</span></p>
+            <p>Accuracy: 28.6%</p>
+        </div>
+        
+
+        <div class="prediction-card miss">
+            <p><span class="input">Input:</span> atthaas</p>
+            <p><span class="target">Target:</span> अट्टहास</p>
+            <p><span class="prediction">Prediction:</span> अट्तास</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">ट</span><span class="char-match">्</span><span class="char-miss">त</span><span class="char-miss">ा</span><span class="char-miss">स</span><span class="char-miss">_</span></p>
+            <p>Accuracy: 42.9%</p>
+        </div>
+        
+
+        <div class="prediction-card miss">
+            <p><span class="input">Input:</span> atthas</p>
+            <p><span class="target">Target:</span> अट्टहास</p>
+            <p><span class="prediction">Prediction:</span> अट्थास</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">ट</span><span class="char-match">्</span><span class="char-miss">थ</span><span class="char-miss">ा</span><span class="char-miss">स</span><span class="char-miss">_</span></p>
+            <p>Accuracy: 42.9%</p>
+        </div>
+        
+
+        <div class="prediction-card miss">
+            <p><span class="input">Input:</span> addon</p>
+            <p><span class="target">Target:</span> अड्डों</p>
+            <p><span class="prediction">Prediction:</span> एडोन</p>
+            <p>Character Match: <span class="char-miss">ए</span><span class="char-match">ड</span><span class="char-miss">ो</span><span class="char-miss">न</span><span class="char-miss">_</span><span class="char-miss">_</span></p>
+            <p>Accuracy: 16.7%</p>
+        </div>
+        
+
+        <div class="prediction-card miss">
+            <p><span class="input">Input:</span> athak</p>
+            <p><span class="target">Target:</span> अथक</p>
+            <p><span class="prediction">Prediction:</span> अठक</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-miss">ठ</span><span class="char-match">क</span></p>
+            <p>Accuracy: 66.7%</p>
+        </div>
+        
+
+        <div class="prediction-card match">
+            <p><span class="input">Input:</span> atharv</p>
+            <p><span class="target">Target:</span> अथर्व</p>
+            <p><span class="prediction">Prediction:</span> अथर्व</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">थ</span><span class="char-match">र</span><span class="char-match">्</span><span class="char-match">व</span></p>
+            <p>Accuracy: 100.0%</p>
+        </div>
+        
+
+        <div class="prediction-card miss">
+            <p><span class="input">Input:</span> atharva</p>
+            <p><span class="target">Target:</span> अथर्व</p>
+            <p><span class="prediction">Prediction:</span> अठरवा</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-miss">ठ</span><span class="char-match">र</span><span class="char-miss">व</span><span class="char-miss">ा</span></p>
+            <p>Accuracy: 40.0%</p>
+        </div>
+        
+
+        <div class="prediction-card miss">
+            <p><span class="input">Input:</span> adad</p>
+            <p><span class="target">Target:</span> अदद</p>
+            <p><span class="prediction">Prediction:</span> अदाद</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">द</span><span class="char-miss">ा</span><span class="char-miss">द</span></p>
+            <p>Accuracy: 66.7%</p>
+        </div>
+        
+
+        <div class="prediction-card close">
+            <p><span class="input">Input:</span> adaani</p>
+            <p><span class="target">Target:</span> अदाणी</p>
+            <p><span class="prediction">Prediction:</span> अदानी</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">द</span><span class="char-match">ा</span><span class="char-miss">न</span><span class="char-match">ी</span></p>
+            <p>Accuracy: 80.0%</p>
+        </div>
+        
+
+        <div class="prediction-card miss">
+            <p><span class="input">Input:</span> adani</p>
+            <p><span class="target">Target:</span> अदाणी</p>
+            <p><span class="prediction">Prediction:</span> अदनी</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">द</span><span class="char-miss">न</span><span class="char-miss">ी</span><span class="char-miss">_</span></p>
+            <p>Accuracy: 40.0%</p>
+        </div>
+        
+
+        <div class="prediction-card close">
+            <p><span class="input">Input:</span> advait</p>
+            <p><span class="target">Target:</span> अद्वैत</p>
+            <p><span class="prediction">Prediction:</span> अद्वतत</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">द</span><span class="char-match">्</span><span class="char-match">व</span><span class="char-miss">त</span><span class="char-match">त</span></p>
+            <p>Accuracy: 83.3%</p>
+        </div>
+        
+
+        <div class="prediction-card miss">
+            <p><span class="input">Input:</span> adwait</p>
+            <p><span class="target">Target:</span> अद्वैत</p>
+            <p><span class="prediction">Prediction:</span> अदवात</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">द</span><span class="char-miss">व</span><span class="char-miss">ा</span><span class="char-miss">त</span><span class="char-miss">_</span></p>
+            <p>Accuracy: 33.3%</p>
+        </div>
+        
+
+        <div class="prediction-card close">
+            <p><span class="input">Input:</span> advaitvaad</p>
+            <p><span class="target">Target:</span> अद्वैतवाद</p>
+            <p><span class="prediction">Prediction:</span> अद्वातवाद</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">द</span><span class="char-match">्</span><span class="char-match">व</span><span class="char-miss">ा</span><span class="char-match">त</span><span class="char-match">व</span><span class="char-match">ा</span><span class="char-match">द</span></p>
+            <p>Accuracy: 88.9%</p>
+        </div>
+        
+
+        <div class="prediction-card miss">
+            <p><span class="input">Input:</span> advaitwad</p>
+            <p><span class="target">Target:</span> अद्वैतवाद</p>
+            <p><span class="prediction">Prediction:</span> अदवातवाद</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">द</span><span class="char-miss">व</span><span class="char-miss">ा</span><span class="char-miss">त</span><span class="char-miss">व</span><span class="char-miss">ा</span><span class="char-miss">द</span><span class="char-miss">_</span></p>
+            <p>Accuracy: 22.2%</p>
+        </div>
+        
+
+        <div class="prediction-card match">
+            <p><span class="input">Input:</span> adhivas</p>
+            <p><span class="target">Target:</span> अधिवास</p>
+            <p><span class="prediction">Prediction:</span> अधिवास</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">ध</span><span class="char-match">ि</span><span class="char-match">व</span><span class="char-match">ा</span><span class="char-match">स</span></p>
+            <p>Accuracy: 100.0%</p>
+        </div>
+        
+
+        <div class="prediction-card match">
+            <p><span class="input">Input:</span> adhiwas</p>
+            <p><span class="target">Target:</span> अधिवास</p>
+            <p><span class="prediction">Prediction:</span> अधिवास</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">ध</span><span class="char-match">ि</span><span class="char-match">व</span><span class="char-match">ा</span><span class="char-match">स</span></p>
+            <p>Accuracy: 100.0%</p>
+        </div>
+        
+
+        <div class="prediction-card miss">
+            <p><span class="input">Input:</span> advivas</p>
+            <p><span class="target">Target:</span> अधिवास</p>
+            <p><span class="prediction">Prediction:</span> अड्वविस</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-miss">ड</span><span class="char-miss">्</span><span class="char-match">व</span><span class="char-miss">व</span><span class="char-miss">ि</span><span class="char-miss">स</span></p>
+            <p>Accuracy: 33.3%</p>
+        </div>
+        
+
+        <div class="prediction-card close">
+            <p><span class="input">Input:</span> adhiik</p>
+            <p><span class="target">Target:</span> अधीक</p>
+            <p><span class="prediction">Prediction:</span> अधिक</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">ध</span><span class="char-miss">ि</span><span class="char-match">क</span></p>
+            <p>Accuracy: 75.0%</p>
+        </div>
+        
+
+        <div class="prediction-card close">
+            <p><span class="input">Input:</span> adhik</p>
+            <p><span class="target">Target:</span> अधीक</p>
+            <p><span class="prediction">Prediction:</span> अधिक</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">ध</span><span class="char-miss">ि</span><span class="char-match">क</span></p>
+            <p>Accuracy: 75.0%</p>
+        </div>
+        
+
+        <div class="prediction-card close">
+            <p><span class="input">Input:</span> adhyayanarat</p>
+            <p><span class="target">Target:</span> अध्ययनरत</p>
+            <p><span class="prediction">Prediction:</span> अध्यानरात</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">ध</span><span class="char-match">्</span><span class="char-match">य</span><span class="char-miss">ा</span><span class="char-match">न</span><span class="char-match">र</span><span class="char-miss">ा</span><span class="char-miss">त</span></p>
+            <p>Accuracy: 75.0%</p>
+        </div>
+        
+
+        <div class="prediction-card close">
+            <p><span class="input">Input:</span> adhyayanrat</p>
+            <p><span class="target">Target:</span> अध्ययनरत</p>
+            <p><span class="prediction">Prediction:</span> अध्यानर्त</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">ध</span><span class="char-match">्</span><span class="char-match">य</span><span class="char-miss">ा</span><span class="char-match">न</span><span class="char-match">र</span><span class="char-miss">्</span><span class="char-miss">त</span></p>
+            <p>Accuracy: 75.0%</p>
+        </div>
+        
+
+        <div class="prediction-card close">
+            <p><span class="input">Input:</span> adhyaynrat</p>
+            <p><span class="target">Target:</span> अध्ययनरत</p>
+            <p><span class="prediction">Prediction:</span> अध्यानर्त</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">ध</span><span class="char-match">्</span><span class="char-match">य</span><span class="char-miss">ा</span><span class="char-match">न</span><span class="char-match">र</span><span class="char-miss">्</span><span class="char-miss">त</span></p>
+            <p>Accuracy: 75.0%</p>
+        </div>
+        
+
+        <div class="prediction-card match">
+            <p><span class="input">Input:</span> anant</p>
+            <p><span class="target">Target:</span> अनंत</p>
+            <p><span class="prediction">Prediction:</span> अनंत</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">न</span><span class="char-match">ं</span><span class="char-match">त</span></p>
+            <p>Accuracy: 100.0%</p>
+        </div>
+        
+
+        <div class="prediction-card match">
+            <p><span class="input">Input:</span> ananti</p>
+            <p><span class="target">Target:</span> अनंती</p>
+            <p><span class="prediction">Prediction:</span> अनंती</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">न</span><span class="char-match">ं</span><span class="char-match">त</span><span class="char-match">ी</span></p>
+            <p>Accuracy: 100.0%</p>
+        </div>
+        
+
+        <div class="prediction-card close">
+            <p><span class="input">Input:</span> angadh</p>
+            <p><span class="target">Target:</span> अनगढ़</p>
+            <p><span class="prediction">Prediction:</span> अंगढ़</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-miss">ं</span><span class="char-match">ग</span><span class="char-match">ढ</span><span class="char-match">़</span></p>
+            <p>Accuracy: 80.0%</p>
+        </div>
+        
+
+        <div class="prediction-card miss">
+            <p><span class="input">Input:</span> angarh</p>
+            <p><span class="target">Target:</span> अनगढ़</p>
+            <p><span class="prediction">Prediction:</span> अंग्रह</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-miss">ं</span><span class="char-match">ग</span><span class="char-miss">्</span><span class="char-miss">र</span><span class="char-miss">ह</span></p>
+            <p>Accuracy: 40.0%</p>
+        </div>
+        
+
+        <div class="prediction-card miss">
+            <p><span class="input">Input:</span> anchahe</p>
+            <p><span class="target">Target:</span> अनचाहे</p>
+            <p><span class="prediction">Prediction:</span> अंचाे</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-miss">ं</span><span class="char-match">च</span><span class="char-match">ा</span><span class="char-miss">े</span><span class="char-miss">_</span></p>
+            <p>Accuracy: 50.0%</p>
+        </div>
+        
+
+        <div class="prediction-card miss">
+            <p><span class="input">Input:</span> anthak</p>
+            <p><span class="target">Target:</span> अनथक</p>
+            <p><span class="prediction">Prediction:</span> अंतक</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-miss">ं</span><span class="char-miss">त</span><span class="char-match">क</span></p>
+            <p>Accuracy: 50.0%</p>
+        </div>
+        
+
+        <div class="prediction-card miss">
+            <p><span class="input">Input:</span> unthak</p>
+            <p><span class="target">Target:</span> अनथक</p>
+            <p><span class="prediction">Prediction:</span> उंतक</p>
+            <p>Character Match: <span class="char-miss">उ</span><span class="char-miss">ं</span><span class="char-miss">त</span><span class="char-match">क</span></p>
+            <p>Accuracy: 25.0%</p>
+        </div>
+        
+
+        <div class="prediction-card miss">
+            <p><span class="input">Input:</span> anhoni</p>
+            <p><span class="target">Target:</span> अनहोनी</p>
+            <p><span class="prediction">Prediction:</span> अनोनी</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">न</span><span class="char-miss">ो</span><span class="char-miss">न</span><span class="char-miss">ी</span><span class="char-miss">_</span></p>
+            <p>Accuracy: 33.3%</p>
+        </div>
+        
+
+        <div class="prediction-card miss">
+            <p><span class="input">Input:</span> anaavashyak</p>
+            <p><span class="target">Target:</span> अनावश्यक</p>
+            <p><span class="prediction">Prediction:</span> अनावाशक</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">न</span><span class="char-match">ा</span><span class="char-match">व</span><span class="char-miss">ा</span><span class="char-miss">श</span><span class="char-miss">क</span><span class="char-miss">_</span></p>
+            <p>Accuracy: 50.0%</p>
+        </div>
+        
+
+        <div class="prediction-card miss">
+            <p><span class="input">Input:</span> anavashyak</p>
+            <p><span class="target">Target:</span> अनावश्यक</p>
+            <p><span class="prediction">Prediction:</span> अनावाशक</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">न</span><span class="char-match">ा</span><span class="char-match">व</span><span class="char-miss">ा</span><span class="char-miss">श</span><span class="char-miss">क</span><span class="char-miss">_</span></p>
+            <p>Accuracy: 50.0%</p>
+        </div>
+        
+
+        <div class="prediction-card miss">
+            <p><span class="input">Input:</span> anavshyak</p>
+            <p><span class="target">Target:</span> अनावश्यक</p>
+            <p><span class="prediction">Prediction:</span> अनावशयक</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">न</span><span class="char-match">ा</span><span class="char-match">व</span><span class="char-match">श</span><span class="char-miss">य</span><span class="char-miss">क</span><span class="char-miss">_</span></p>
+            <p>Accuracy: 62.5%</p>
+        </div>
+        
+
+        <div class="prediction-card miss">
+            <p><span class="input">Input:</span> anawashyak</p>
+            <p><span class="target">Target:</span> अनावश्यक</p>
+            <p><span class="prediction">Prediction:</span> अनावाशक</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">न</span><span class="char-match">ा</span><span class="char-match">व</span><span class="char-miss">ा</span><span class="char-miss">श</span><span class="char-miss">क</span><span class="char-miss">_</span></p>
+            <p>Accuracy: 50.0%</p>
+        </div>
+        
+
+        <div class="prediction-card match">
+            <p><span class="input">Input:</span> anik</p>
+            <p><span class="target">Target:</span> अनिक</p>
+            <p><span class="prediction">Prediction:</span> अनिक</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">न</span><span class="char-match">ि</span><span class="char-match">क</span></p>
+            <p>Accuracy: 100.0%</p>
+        </div>
+        
+
+        <div class="prediction-card close">
+            <p><span class="input">Input:</span> anishwarvadi</p>
+            <p><span class="target">Target:</span> अनीश्वरवादी</p>
+            <p><span class="prediction">Prediction:</span> अनिश्वरवादी</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">न</span><span class="char-miss">ि</span><span class="char-match">श</span><span class="char-match">्</span><span class="char-match">व</span><span class="char-match">र</span><span class="char-match">व</span><span class="char-match">ा</span><span class="char-match">द</span><span class="char-match">ी</span></p>
+            <p>Accuracy: 90.9%</p>
+        </div>
+        
+
+        <div class="prediction-card miss">
+            <p><span class="input">Input:</span> anishwarwadi</p>
+            <p><span class="target">Target:</span> अनीश्वरवादी</p>
+            <p><span class="prediction">Prediction:</span> अनिश्वारवादी</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">न</span><span class="char-miss">ि</span><span class="char-match">श</span><span class="char-match">्</span><span class="char-match">व</span><span class="char-miss">ा</span><span class="char-miss">र</span><span class="char-miss">व</span><span class="char-miss">ा</span><span class="char-miss">द</span><span class="char-miss">ी</span></p>
+            <p>Accuracy: 45.5%</p>
+        </div>
+        
+
+        <div class="prediction-card match">
+            <p><span class="input">Input:</span> anukoltha</p>
+            <p><span class="target">Target:</span> अनुकूलता</p>
+            <p><span class="prediction">Prediction:</span> अनुकूलता</p>
+            <p>Character Match: <span class="char-match">अ</span><span class="char-match">न</span><span class="char-match">ु</span><span class="char-match">क</span><span class="char-match">ू</span><span class="char-match">ल</span><span class="char-match">त</span><span class="char-match">ा</span></p>
+            <p>Accuracy: 100.0%</p>
+        </div>
+        
+        </div>
+    </body>
+    </html>
+    

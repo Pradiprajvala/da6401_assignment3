@@ -1,0 +1,10 @@
+lr: 0.0014677989484766095
+epochs: 10
+dropout: 0.3
+cell_type: LSTM
+batch_size: 32
+beam_width: 1
+embed_size: 256
+hidden_size: 256
+num_layers_decoder: 3
+num_layers_encoder: 3
